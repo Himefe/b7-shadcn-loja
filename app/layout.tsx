@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header/page";
-import Footer from "@/components/footer/page";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { ThemeProvider } from "@/providers/theme";
 
 const fontSans = Geist({
     variable: "--font-sans",
@@ -19,11 +20,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="pt-BR" suppressHydrationWarning>
             <body className={`${fontSans.variable} antialiased`}>
-                <Header />
-                {children}
-                <Footer />
+                <ThemeProvider>
+                    <div className="w-full max-w-4xl mx-auto">
+                        <Header />
+                        {children}
+                        <Footer />
+                    </div>
+                </ThemeProvider>
             </body>
         </html>
     );
