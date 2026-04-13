@@ -1,5 +1,6 @@
 import Logo from "@/components/header/logo";
 import ThemeToogle from "@/components/theme";
+import CartSidebar from "../cart/sidebar";
 
 const Header = () => {
     return (
@@ -8,7 +9,9 @@ const Header = () => {
                 <Logo />
                 <ThemeToogle />
             </div>
-            <div>...</div>
+            <div className="flex items-center gap-3">
+                <CartSidebar />
+            </div>
         </header>
     );
 };
