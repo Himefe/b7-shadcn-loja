@@ -1,0 +1,8 @@
+export interface Category {
+    id: number;
+    name: string;
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt?: string;
+}

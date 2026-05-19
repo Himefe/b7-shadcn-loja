@@ -4,7 +4,7 @@ import CartSidebar from "../cart/sidebar";
 
 const Header = () => {
     return (
-        <header className="flex justify-between items-center my-5 mx-3">
+        <header className="flex justify-between items-center my-5 mx-3 sticky top[1.25rem] z-10 bg-background">
             <div className="flex gap-3 items-center">
                 <Logo />
                 <ThemeToogle />

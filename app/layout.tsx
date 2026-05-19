@@ -23,7 +23,7 @@ export default function RootLayout({
         <html lang="pt-BR" suppressHydrationWarning>
             <body className={`${fontSans.variable} antialiased`}>
                 <ThemeProvider>
-                    <div className="w-full max-w-4xl mx-auto">
+                    <div className="w-full max-w-4xl mx-auto min-h-[calc(100vh-20px)] flex flex-col">
                         <Header />
                         {children}
                         <Footer />
