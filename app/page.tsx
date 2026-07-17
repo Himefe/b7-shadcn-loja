@@ -1,4 +1,4 @@
-import ProductsTabs from "@/components/products/tabs";
+import ProductsTabs from "@/components/products";
 import ProductsSkeleton from "@/components/products/skeleton";
 import { Suspense } from "react";
 

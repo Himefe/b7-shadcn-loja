@@ -1,6 +1,6 @@
 import Logo from "@/components/header/logo";
 import ThemeToogle from "@/components/theme";
-import CartSidebar from "../cart/sidebar";
+import CartSidebar from "@/components/cart/sidebar";
 
 const Header = () => {
     return (

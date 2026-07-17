@@ -6,3 +6,7 @@ export interface Category {
     updatedAt: string;
     deletedAt?: string;
 }
+
+export enum CategoryTypes {
+    PRODUCT = "PRODUCT",
+}
