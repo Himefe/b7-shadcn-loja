@@ -2,13 +2,20 @@ import { Product } from "@/types/product";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useCartStore } from "@/store/cart";
+import { memo } from "react";
 
 type ProductItemProps = {
     item: Product;
 };
 
 const ProductItem = ({ item }: ProductItemProps) => {
+    const { cart, addToCart, removeFromCart } = useCartStore();
+    console.log("🚀 ~ ProductItem ~ cart:", cart);
+
     const handleAddToCart = () => {
+        addToCart(item, 1);
+
         toast("Produto adicionado ao carrinho", {
             description: `O produto ${item.name} foi adicionado ao carrinho com sucesso`,
         });
@@ -33,9 +40,12 @@ const ProductItem = ({ item }: ProductItemProps) => {
                 <Button variant="outline" className="cursor-pointer" onClick={handleAddToCart}>
                     Adicionar
                 </Button>
+                <Button variant="outline" className="cursor-pointer" onClick={() => removeFromCart(item)}>
+                    Rmv
+                </Button>
             </div>
         </div>
     );
 };
 
-export default ProductItem;
+export default memo(ProductItem);
