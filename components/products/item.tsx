@@ -10,7 +10,7 @@ type ProductItemProps = {
 };
 
 const ProductItem = ({ item }: ProductItemProps) => {
-    const { cart, addToCart, removeFromCart } = useCartStore();
+    const { cart, addToCart } = useCartStore();
     console.log("🚀 ~ ProductItem ~ cart:", cart);
 
     const handleAddToCart = () => {
@@ -39,9 +39,6 @@ const ProductItem = ({ item }: ProductItemProps) => {
                 <p className="text-sm text-muted-foreground">{item.price.toFixed(2)}</p>
                 <Button variant="outline" className="cursor-pointer" onClick={handleAddToCart}>
                     Adicionar
-                </Button>
-                <Button variant="outline" className="cursor-pointer" onClick={() => removeFromCart(item)}>
-                    Rmv
                 </Button>
             </div>
         </div>

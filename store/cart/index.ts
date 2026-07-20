@@ -14,7 +14,10 @@ export const useCartStore = create<CartStore>()((set) => ({
             return {
                 ...state,
                 cart: hasProduct
-                    ? state.cart.map((item) => (item.product.id === product.id ? { ...item, quantity: item.quantity + quantity } : item))
+                    ? state.cart.map((item) => ({
+                          ...item,
+                          quantity: item.product.id === product.id ? item.quantity + quantity : item.quantity,
+                      }))
                     : [...state.cart, { product, quantity }],
             };
         });
@@ -36,7 +39,10 @@ export const useCartStore = create<CartStore>()((set) => ({
 
             return {
                 ...state,
-                cart: state.cart.map((item) => (item.product.id === product.id ? { ...item, quantity: item.quantity - 1 } : item)),
+                cart: state.cart.map((item) => ({
+                    ...item,
+                    quantity: item.product.id === product.id ? item.quantity - 1 : item.quantity,
+                })),
             };
         });
     },
