@@ -1,11 +1,11 @@
-import ProductsTabs from "@/components/products/tabs";
-import ProductsTabSkeleton from "@/components/products/tabs/skeleton";
+import ProductsTabs from "@/components/products";
+import ProductsSkeleton from "@/components/products/skeleton";
 import { Suspense } from "react";
 
 export default function Home() {
     return (
-        <div className="mx-3">
-            <Suspense fallback={<ProductsTabSkeleton />}>
+        <div className="mx-3 flex-1">
+            <Suspense fallback={<ProductsSkeleton />}>
                 <ProductsTabs />
             </Suspense>
         </div>

@@ -1,10 +1,8 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const ProductsTabSkeleton = () => {
+const ProductsSkeleton = () => {
     return (
         <>
-            <Skeleton className="w-full h-10 rounded-xl mb-6" />
-
             <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
                 {Array.from({ length: 6 }).map((_, index) => (
                     <div key={`product-skeleton-${index}`}>
@@ -19,4 +17,4 @@ const ProductsTabSkeleton = () => {
     );
 };
 
-export default ProductsTabSkeleton;
+export default ProductsSkeleton;

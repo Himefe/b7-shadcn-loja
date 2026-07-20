@@ -1,10 +1,10 @@
 import Logo from "@/components/header/logo";
 import ThemeToogle from "@/components/theme";
-import CartSidebar from "../cart/sidebar";
+import CartSidebar from "@/components/cart/sidebar";
 
 const Header = () => {
     return (
-        <header className="flex justify-between items-center my-5 mx-3">
+        <header className="flex justify-between items-center my-5 mx-3 sticky top[1.25rem] z-10 bg-background">
             <div className="flex gap-3 items-center">
                 <Logo />
                 <ThemeToogle />
