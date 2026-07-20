@@ -32,7 +32,7 @@ const ProductsTabs = () => {
             return;
         }
 
-        setSelectedTab(categories[0]?.id);
+        setSelectedTab(categories[0].id);
     }, [categories]);
 
     return (
@@ -61,9 +61,10 @@ const ProductsTabs = () => {
                             ))}
                         </TabsContent>
                     )}
+                    {!isLoadingProducts && !Boolean(products.length) && <p>Não há nenhum produto cadastrado nesta categoria.</p>}
                 </Tabs>
             )}
-            {!isLoadingCategories && !Boolean(categories.length) && <p>Não há nenhum produto cadastrado no momento.</p>}
+            {!isLoadingCategories && !Boolean(categories.length) && <p>Não há nenhuma categoria cadastrada no momento.</p>}
         </>
     );
 };

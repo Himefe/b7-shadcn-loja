@@ -1,12 +1,19 @@
 import { Product } from "@/types/product";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 type ProductItemProps = {
     item: Product;
 };
 
 const ProductItem = ({ item }: ProductItemProps) => {
+    const handleAddToCart = () => {
+        toast("Produto adicionado ao carrinho", {
+            description: `O produto ${item.name} foi adicionado ao carrinho com sucesso`,
+        });
+    };
+
     return (
         <div>
             <div className="rounded-md overflow-hidden mb-3">
@@ -23,7 +30,7 @@ const ProductItem = ({ item }: ProductItemProps) => {
             <div className="flex flex-col gap-2">
                 <p className="text-sm">{item.name}</p>
                 <p className="text-sm text-muted-foreground">{item.price.toFixed(2)}</p>
-                <Button variant="outline" className="cursor-pointer">
+                <Button variant="outline" className="cursor-pointer" onClick={handleAddToCart}>
                     Adicionar
                 </Button>
             </div>
