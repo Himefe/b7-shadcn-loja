@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useCartStore } from "@/store/cart";
 import { memo } from "react";
+import { numberToCurrency } from "@/utils/number";
 
 type ProductItemProps = {
     item: Product;
 };
 
 const ProductItem = ({ item }: ProductItemProps) => {
-    const { cart, addToCart } = useCartStore();
-    console.log("🚀 ~ ProductItem ~ cart:", cart);
+    const { addToCart } = useCartStore();
 
     const handleAddToCart = () => {
         addToCart(item, 1);
@@ -36,7 +36,7 @@ const ProductItem = ({ item }: ProductItemProps) => {
             </div>
             <div className="flex flex-col gap-2">
                 <p className="text-sm">{item.name}</p>
-                <p className="text-sm text-muted-foreground">{item.price.toFixed(2)}</p>
+                <p className="text-sm text-muted-foreground">{numberToCurrency(item.price)}</p>
                 <Button variant="outline" className="cursor-pointer" onClick={handleAddToCart}>
                     Adicionar
                 </Button>

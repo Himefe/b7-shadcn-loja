@@ -1,24 +1,31 @@
 import { create } from "zustand";
 import { CartStore } from "./types";
 
-const initialState: Pick<CartStore, "cart"> = {
+const initialState: Pick<CartStore, "cart" | "isCartOpen"> = {
     cart: [],
+    isCartOpen: false,
 };
 
 export const useCartStore = create<CartStore>()((set) => ({
     ...initialState,
+    openCloseCart: (open: boolean) => set((state) => ({ ...state, isCartOpen: open })),
     addToCart: (product, quantity) => {
         return set((state) => {
             const hasProduct = state.cart.some((item) => item.product.id === product.id);
 
+            if (hasProduct) {
+                return {
+                    ...state,
+                    cart: state.cart.map((item) => ({
+                        ...item,
+                        quantity: item.product.id === product.id ? item.quantity + quantity : item.quantity,
+                    })),
+                };
+            }
+
             return {
                 ...state,
-                cart: hasProduct
-                    ? state.cart.map((item) => ({
-                          ...item,
-                          quantity: item.product.id === product.id ? item.quantity + quantity : item.quantity,
-                      }))
-                    : [...state.cart, { product, quantity }],
+                cart: [...state.cart, { product, quantity }],
             };
         });
     },
