@@ -1,5 +1,6 @@
 import { Cart } from "@/types/cart";
 import CartContentItem from "./item";
+import { memo } from "react";
 
 type CartContentProps = {
     cart: Cart[];
@@ -7,7 +8,7 @@ type CartContentProps = {
 
 const CartContent = ({ cart }: CartContentProps) => {
     return (
-        <div className="flex flex-col gap-5 my-3">
+        <div className="flex flex-col gap-5 p-2 pl-0 overflow-y-auto max-h-[calc(100vh-200px)]">
             {cart.map((item) => (
                 <CartContentItem key={item.product.id} item={item} />
             ))}
@@ -15,4 +16,4 @@ const CartContent = ({ cart }: CartContentProps) => {
     );
 };
 
-export default CartContent;
+export default memo(CartContent);

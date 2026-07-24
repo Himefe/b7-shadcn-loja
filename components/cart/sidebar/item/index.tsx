@@ -2,6 +2,7 @@ import { Cart } from "@/types/cart";
 import { numberToCurrency } from "@/utils/number";
 import Image from "next/image";
 import CartContentItemQuantity from "./quantity";
+import { memo } from "react";
 
 type CartContentItemProps = {
     item: Cart;
@@ -32,4 +33,4 @@ const CartContentItem = ({ item }: CartContentItemProps) => {
     );
 };
 
-export default CartContentItem;
+export default memo(CartContentItem);
