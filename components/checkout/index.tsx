@@ -1,14 +1,13 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
+import { useCheckoutStore } from "@/store/checkout";
 
-type CheckoutModalProps = {
-    isOpen: boolean;
-    onOpenChange: (isOpen: boolean) => void;
-};
+const CheckoutModal = () => {
+    const toggleCheckout = useCheckoutStore((state) => state.toggleCheckout);
+    const isCheckoutOpen = useCheckoutStore((state) => state.isCheckoutOpen);
 
-const CheckoutModal = ({ isOpen, onOpenChange }: CheckoutModalProps) => {
     return (
-        <Dialog open={isOpen} onOpenChange={onOpenChange}>
+        <Dialog open={isCheckoutOpen} onOpenChange={toggleCheckout}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Checkout</DialogTitle>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -13,8 +13,6 @@ import CartContentEmpty from "./empty";
 import CheckoutModal from "@/components/checkout";
 
 const CartSidebar = () => {
-    const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
-
     const cart = useCartStore((state) => state.cart);
     const isCartOpen = useCartStore((state) => state.isCartOpen);
     const openCloseCart = useCartStore((state) => state.openCloseCart);
@@ -49,13 +47,13 @@ const CartSidebar = () => {
                     <>
                         <CartContent cart={cart} />
                         <Separator />
-                        <CartContentFooter subtotal={subtotal} onOpenCheckoutModal={setIsCheckoutModalOpen.bind(null, true)} />
+                        <CartContentFooter subtotal={subtotal} />
                     </>
                 ) : (
                     <CartContentEmpty />
                 )}
             </SheetContent>
-            <CheckoutModal isOpen={isCheckoutModalOpen} onOpenChange={setIsCheckoutModalOpen} />
+            <CheckoutModal />
         </Sheet>
     );
 };
