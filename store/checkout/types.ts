@@ -37,6 +37,7 @@ type CheckoutStepData = {
     [CheckoutStep.CUSTOMER]: CheckoutStepCustomerData;
     [CheckoutStep.ADDRESS]: CheckoutStepAddressData;
     [CheckoutStep.PAYMENT]: CheckoutStepPaymentData;
+    [CheckoutStep.REVIEW]: Cart;
 };
 
 export type CheckoutStore = {
@@ -44,12 +45,7 @@ export type CheckoutStore = {
     toggleCheckout: (open: boolean) => void;
     steps: CheckoutStep[];
     currentStep: CheckoutStep;
-    data: Partial<{
-        [CheckoutStep.CUSTOMER]: CheckoutStepCustomerData;
-        [CheckoutStep.ADDRESS]: CheckoutStepAddressData;
-        [CheckoutStep.PAYMENT]: CheckoutStepPaymentData;
-        [CheckoutStep.REVIEW]: Cart;
-    }>;
+    data: Partial<CheckoutStepData>;
     setStep: (step: CheckoutStep) => void;
     nextStep: () => void;
     prevStep: () => void;
