@@ -1,12 +1,8 @@
-import { Cart } from "@/types/cart";
-
 export enum CheckoutStep {
     CUSTOMER = "CUSTOMER",
     ADDRESS = "ADDRESS",
     PAYMENT = "PAYMENT",
     REVIEW = "REVIEW",
-    SUCCESS = "SUCCESS",
-    FAILURE = "FAILURE",
 }
 
 type CheckoutStepCustomerData = {
@@ -37,15 +33,16 @@ type CheckoutStepData = {
     [CheckoutStep.CUSTOMER]: CheckoutStepCustomerData;
     [CheckoutStep.ADDRESS]: CheckoutStepAddressData;
     [CheckoutStep.PAYMENT]: CheckoutStepPaymentData;
-    [CheckoutStep.REVIEW]: Cart;
 };
 
 export type CheckoutStore = {
     isCheckoutOpen: boolean;
-    toggleCheckout: (open: boolean) => void;
     steps: CheckoutStep[];
     currentStep: CheckoutStep;
     data: Partial<CheckoutStepData>;
+    completedSteps: CheckoutStep[];
+    completeStep: (step: CheckoutStep) => void;
+    toggleCheckout: (open: boolean) => void;
     setStep: (step: CheckoutStep) => void;
     nextStep: () => void;
     prevStep: () => void;
