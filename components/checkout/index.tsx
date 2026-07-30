@@ -42,6 +42,7 @@ const CheckoutModal = () => {
                             );
                         })}
                     </TabsList>
+                    <Separator className="my-2" />
                     <TabsContent value={currentStep} className="flex flex-col gap-4 mb-4">
                         {getContentComponent(currentStep)}
                     </TabsContent>

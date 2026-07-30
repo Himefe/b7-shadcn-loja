@@ -1,15 +1,11 @@
+import { CheckoutStepCustomerData } from "@/components/checkout/tabs/customer/utils";
+
 export enum CheckoutStep {
     CUSTOMER = "CUSTOMER",
     ADDRESS = "ADDRESS",
     PAYMENT = "PAYMENT",
     REVIEW = "REVIEW",
 }
-
-type CheckoutStepCustomerData = {
-    name: string;
-    email: string;
-    phone: string;
-};
 
 type CheckoutStepAddressData = {
     zipCode: string;
