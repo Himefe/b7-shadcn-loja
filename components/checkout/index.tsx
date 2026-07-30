@@ -1,5 +1,4 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Progress } from "@/components/ui/progress";
 import { useCheckoutStore } from "@/store/checkout";
 import { CHECKOUT_STEPS_COMPONENTS, CHECKOUT_STEPS_CONFIG } from "@/store/checkout/config";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -15,9 +14,7 @@ const CheckoutModal = () => {
     const completedSteps = useCheckoutStore((state) => state.completedSteps);
     const setStep = useCheckoutStore((state) => state.setStep);
 
-    const { title = "", description = "", progress = 0 } = CHECKOUT_STEPS_CONFIG[currentStep];
-
-    const currentStepIndex = steps.indexOf(currentStep) + 1;
+    const { title = "", description = "" } = CHECKOUT_STEPS_CONFIG[currentStep];
 
     const getContentComponent = (step: CheckoutStep) => {
         const Component = CHECKOUT_STEPS_COMPONENTS[step];
@@ -33,12 +30,6 @@ const CheckoutModal = () => {
                     <p className="text-sm text-muted-foreground">{description}</p>
                 </DialogHeader>
                 <Separator />
-                <div>
-                    <span className="text-sm text-muted-foreground text-right block w-full mb-1">
-                        {currentStepIndex} de {steps.length + 1}
-                    </span>
-                    <Progress value={progress} title={`${progress}%`} />
-                </div>
                 <Tabs value={currentStep} defaultValue={CheckoutStep.CUSTOMER}>
                     <TabsList className="w-full">
                         {steps.map((step) => {
