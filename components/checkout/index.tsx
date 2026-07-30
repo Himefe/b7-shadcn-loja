@@ -33,7 +33,7 @@ const CheckoutModal = () => {
                 <Tabs value={currentStep} defaultValue={CheckoutStep.CUSTOMER}>
                     <TabsList className="w-full">
                         {steps.map((step) => {
-                            const isTabDisabled = step !== currentStep && !completedSteps.includes(step);
+                            const isTabDisabled = step !== CheckoutStep.REVIEW && step !== currentStep && !completedSteps.includes(step);
 
                             return (
                                 <TabsTrigger key={step} value={step} onClick={setStep.bind(null, step)} disabled={isTabDisabled}>

@@ -1,20 +1,23 @@
 import { useCheckoutStore } from "@/store/checkout";
-import CheckoutContentFooter from "../footer";
+import CheckoutStepContentFooter from "../footer";
 import { CheckoutStep } from "@/store/checkout/types";
 import { Controller, useForm } from "react-hook-form";
-import { CheckoutCustomerFormSchema, CheckoutStepCustomerData } from "./utils";
+import { checkoutCustomerFormSchema, CheckoutStepCustomerData } from "./utils";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PatternFormat } from "react-number-format";
+import { useEffect } from "react";
 
-const CheckoutCustomerContent = () => {
+const CheckoutCustomerStepContent = () => {
     const setStep = useCheckoutStore((state) => state.setStep);
     const completeStep = useCheckoutStore((state) => state.completeStep);
     const setData = useCheckoutStore((state) => state.setData);
 
-    const { control, formState, handleSubmit } = useForm<CheckoutStepCustomerData>({
-        resolver: zodResolver(CheckoutCustomerFormSchema),
+    const data = useCheckoutStore((state) => state.data);
+
+    const { control, formState, handleSubmit, setValues } = useForm<CheckoutStepCustomerData>({
+        resolver: zodResolver(checkoutCustomerFormSchema),
         mode: "onChange",
         defaultValues: {
             name: "",
@@ -30,6 +33,12 @@ const CheckoutCustomerContent = () => {
         setStep(CheckoutStep.ADDRESS);
     };
 
+    useEffect(() => {
+        if (data[CheckoutStep.CUSTOMER]) {
+            setValues(data[CheckoutStep.CUSTOMER]);
+        }
+    }, [data, setValues]);
+
     return (
         <form onSubmit={handleSubmit(submit)}>
             <div className="grid sm:grid-cols-2 gap-6 mb-4">
@@ -40,7 +49,7 @@ const CheckoutCustomerContent = () => {
                         render={({ field, fieldState }) => {
                             return (
                                 <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel htmlFor="name">Nome</FieldLabel>
+                                    <FieldLabel htmlFor="name">Nome completo</FieldLabel>
                                     <Input {...field} id="name" aria-invalid={fieldState.invalid} placeholder="Digite seu nome completo" autoComplete="off" />
                                 </Field>
                             );
@@ -109,9 +118,9 @@ const CheckoutCustomerContent = () => {
                     />
                 </FieldGroup>
             </div>
-            <CheckoutContentFooter isValid={formState.isValid} />
+            <CheckoutStepContentFooter isValid={formState.isValid} />
         </form>
     );
 };
 
-export default CheckoutCustomerContent;
+export default CheckoutCustomerStepContent;

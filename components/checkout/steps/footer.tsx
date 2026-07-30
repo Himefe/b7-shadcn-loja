@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 
-type CheckoutContentFooterProps = {
+type CheckoutStepContentFooterProps = {
     onPrev?: () => void;
     isValid?: boolean;
     button?: Partial<{
@@ -10,7 +10,7 @@ type CheckoutContentFooterProps = {
     }>;
 };
 
-const CheckoutContentFooter = ({ onPrev, isValid = false, button = {} }: CheckoutContentFooterProps) => {
+const CheckoutStepContentFooter = ({ onPrev, isValid = false, button = {} }: CheckoutStepContentFooterProps) => {
     const { label, type, onClick } = button;
 
     return (
@@ -29,4 +29,4 @@ const CheckoutContentFooter = ({ onPrev, isValid = false, button = {} }: Checkou
     );
 };
 
-export default CheckoutContentFooter;
+export default CheckoutStepContentFooter;

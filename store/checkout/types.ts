@@ -1,4 +1,4 @@
-import { CheckoutStepCustomerData } from "@/components/checkout/tabs/customer/utils";
+import { CheckoutStepCustomerData } from "@/components/checkout/steps/customer/utils";
 
 export enum CheckoutStep {
     CUSTOMER = "CUSTOMER",

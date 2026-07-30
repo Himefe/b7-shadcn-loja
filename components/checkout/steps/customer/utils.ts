@@ -1,7 +1,7 @@
 import z from "zod";
 import { isValidCPF } from "@brazilian-utils/brazilian-utils";
 
-export const CheckoutCustomerFormSchema = z.object({
+export const checkoutCustomerFormSchema = z.object({
     name: z.string().nonempty("O nome é obrigatório"),
     email: z.email("O email é inválido").nonempty("O email é obrigatório"),
     phone: z.string().min(11, "O telefone é inválido").nonempty("O telefone é obrigatório"),
@@ -10,4 +10,4 @@ export const CheckoutCustomerFormSchema = z.object({
     }),
 });
 
-export type CheckoutStepCustomerData = z.infer<typeof CheckoutCustomerFormSchema>;
+export type CheckoutStepCustomerData = z.infer<typeof checkoutCustomerFormSchema>;
