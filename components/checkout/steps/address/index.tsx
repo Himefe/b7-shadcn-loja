@@ -92,8 +92,8 @@ const CheckoutAddressStepContent = () => {
 
     return (
         <form onSubmit={handleSubmit(submit)}>
-            <div className="grid sm:grid-cols-2 gap-6 mb-4">
-                <FieldGroup className="sm:col-span-2">
+            <FieldGroup className="grid sm:grid-cols-2 gap-6 mb-4">
+                <div className="sm:col-span-2">
                     <Controller
                         name="zipCode"
                         control={control}
@@ -111,65 +111,57 @@ const CheckoutAddressStepContent = () => {
                             );
                         }}
                     />
-                </FieldGroup>
-                <FieldGroup>
-                    <Controller
-                        name="state"
-                        control={control}
-                        render={({ field, fieldState }) => {
-                            return (
-                                <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel>Estado</FieldLabel>
-                                    <Input {...field} placeholder="Digite seu estado" />
-                                </Field>
-                            );
-                        }}
-                    />
-                </FieldGroup>
-                <FieldGroup>
-                    <Controller
-                        name="city"
-                        control={control}
-                        render={({ field, fieldState }) => {
-                            return (
-                                <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel>Cidade</FieldLabel>
-                                    <Input {...field} placeholder="Digite sua cidade" />
-                                </Field>
-                            );
-                        }}
-                    />
-                </FieldGroup>
-                <FieldGroup>
-                    <Controller
-                        name="neighborhood"
-                        control={control}
-                        render={({ field, fieldState }) => {
-                            return (
-                                <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel>Bairro</FieldLabel>
-                                    <Input {...field} placeholder="Digite seu bairro" />
-                                </Field>
-                            );
-                        }}
-                    />
-                </FieldGroup>
-                <FieldGroup>
-                    <Controller
-                        name="street"
-                        control={control}
-                        render={({ field, fieldState }) => {
-                            return (
-                                <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel>Rua</FieldLabel>
-                                    <Input {...field} placeholder="Digite o nome da rua" />
-                                </Field>
-                            );
-                        }}
-                    />
-                </FieldGroup>
+                </div>
+                <Controller
+                    name="state"
+                    control={control}
+                    render={({ field, fieldState }) => {
+                        return (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Estado</FieldLabel>
+                                <Input {...field} placeholder="Digite seu estado" />
+                            </Field>
+                        );
+                    }}
+                />
+                <Controller
+                    name="city"
+                    control={control}
+                    render={({ field, fieldState }) => {
+                        return (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Cidade</FieldLabel>
+                                <Input {...field} placeholder="Digite sua cidade" />
+                            </Field>
+                        );
+                    }}
+                />
+                <Controller
+                    name="neighborhood"
+                    control={control}
+                    render={({ field, fieldState }) => {
+                        return (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Bairro</FieldLabel>
+                                <Input {...field} placeholder="Digite seu bairro" />
+                            </Field>
+                        );
+                    }}
+                />
+                <Controller
+                    name="street"
+                    control={control}
+                    render={({ field, fieldState }) => {
+                        return (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Rua</FieldLabel>
+                                <Input {...field} placeholder="Digite o nome da rua" />
+                            </Field>
+                        );
+                    }}
+                />
                 <div className="sm:flex gap-4">
-                    <FieldGroup className="sm:max-w w-20">
+                    <div className="sm:max-w w-20">
                         <Controller
                             name="number"
                             control={control}
@@ -182,8 +174,8 @@ const CheckoutAddressStepContent = () => {
                                 );
                             }}
                         />
-                    </FieldGroup>
-                    <FieldGroup className="flex-1">
+                    </div>
+                    <div className="flex-1">
                         <Controller
                             name="complement"
                             control={control}
@@ -196,23 +188,21 @@ const CheckoutAddressStepContent = () => {
                                 );
                             }}
                         />
-                    </FieldGroup>
+                    </div>
                 </div>
-                <FieldGroup>
-                    <Controller
-                        name="observations"
-                        control={control}
-                        render={({ field, fieldState }) => {
-                            return (
-                                <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel>Observações</FieldLabel>
-                                    <Input {...field} placeholder="Digite as observações" />
-                                </Field>
-                            );
-                        }}
-                    />
-                </FieldGroup>
-            </div>
+                <Controller
+                    name="observations"
+                    control={control}
+                    render={({ field, fieldState }) => {
+                        return (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Observações</FieldLabel>
+                                <Input {...field} placeholder="Digite as observações" />
+                            </Field>
+                        );
+                    }}
+                />
+            </FieldGroup>
             <CheckoutStepFooter isValid={formState.isValid} onPrev={handlePrevStep} />
         </form>
     );
