@@ -1,5 +1,5 @@
 import { useCheckoutStore } from "@/store/checkout";
-import CheckoutStepContentFooter from "../footer";
+import CheckoutStepFooter from "../footer";
 import { CheckoutStep } from "@/store/checkout/types";
 import { Controller, useForm } from "react-hook-form";
 import { checkoutCustomerFormSchema, CheckoutStepCustomerData } from "./utils";
@@ -10,13 +10,14 @@ import { PatternFormat } from "react-number-format";
 import { useEffect } from "react";
 
 const CheckoutCustomerStepContent = () => {
-    const setStep = useCheckoutStore((state) => state.setStep);
+    const nextStep = useCheckoutStore((state) => state.nextStep);
     const completeStep = useCheckoutStore((state) => state.completeStep);
     const setData = useCheckoutStore((state) => state.setData);
+    const setStepValidity = useCheckoutStore((state) => state.setStepValidity);
 
-    const data = useCheckoutStore((state) => state.data);
+    const data = useCheckoutStore((state) => state.data[CheckoutStep.CUSTOMER]);
 
-    const { control, formState, handleSubmit, setValues } = useForm<CheckoutStepCustomerData>({
+    const { control, formState, handleSubmit, setValues, getValues } = useForm<CheckoutStepCustomerData>({
         resolver: zodResolver(checkoutCustomerFormSchema),
         mode: "onChange",
         defaultValues: {
@@ -27,17 +28,26 @@ const CheckoutCustomerStepContent = () => {
         },
     });
 
-    const submit = (data: CheckoutStepCustomerData) => {
-        setData(CheckoutStep.CUSTOMER, data);
+    const submit = () => {
         completeStep(CheckoutStep.CUSTOMER);
-        setStep(CheckoutStep.ADDRESS);
+        nextStep();
     };
 
     useEffect(() => {
-        if (data[CheckoutStep.CUSTOMER]) {
-            setValues(data[CheckoutStep.CUSTOMER]);
+        if (data) {
+            setValues(data);
         }
     }, [data, setValues]);
+
+    useEffect(() => {
+        setStepValidity(CheckoutStep.CUSTOMER, formState.isValid);
+    }, [formState.isValid, setStepValidity]);
+
+    useEffect(() => {
+        return () => {
+            setData(CheckoutStep.CUSTOMER, getValues());
+        };
+    }, [getValues, setData]);
 
     return (
         <form onSubmit={handleSubmit(submit)}>
@@ -118,7 +128,7 @@ const CheckoutCustomerStepContent = () => {
                     />
                 </FieldGroup>
             </div>
-            <CheckoutStepContentFooter isValid={formState.isValid} />
+            <CheckoutStepFooter isValid={formState.isValid} />
         </form>
     );
 };

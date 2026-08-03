@@ -37,9 +37,11 @@ export type CheckoutStore = {
     currentStep: CheckoutStep;
     data: Partial<CheckoutStepData>;
     completedSteps: CheckoutStep[];
+    stepValidities: Partial<Record<CheckoutStep, boolean>>;
     completeStep: (step: CheckoutStep) => void;
     toggleCheckout: (open: boolean) => void;
     setStep: (step: CheckoutStep) => void;
+    setStepValidity: (step: CheckoutStep, isValid: boolean) => void;
     nextStep: () => void;
     prevStep: () => void;
     setData: <K extends keyof CheckoutStepData>(step: K, data: CheckoutStepData[K]) => void;

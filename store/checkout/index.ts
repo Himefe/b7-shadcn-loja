@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import { CheckoutStep, CheckoutStore } from "./types";
 
-const initialState: Pick<CheckoutStore, "steps" | "currentStep" | "data" | "isCheckoutOpen" | "completedSteps"> = {
+const initialState: Pick<CheckoutStore, "steps" | "currentStep" | "data" | "isCheckoutOpen" | "completedSteps" | "stepValidities"> = {
     isCheckoutOpen: false,
     steps: [CheckoutStep.CUSTOMER, CheckoutStep.ADDRESS, CheckoutStep.PAYMENT, CheckoutStep.REVIEW],
     currentStep: CheckoutStep.CUSTOMER,
     data: {},
     completedSteps: [],
+    stepValidities: {},
 };
 
 export const useCheckoutStore = create<CheckoutStore>()((set) => ({
@@ -24,6 +25,14 @@ export const useCheckoutStore = create<CheckoutStore>()((set) => ({
             };
         }),
     setStep: (step: CheckoutStep) => set((state) => ({ ...state, currentStep: step })),
+    setStepValidity: (step, isValid) =>
+        set((state) => ({
+            ...state,
+            stepValidities: {
+                ...state.stepValidities,
+                [step]: isValid,
+            },
+        })),
     nextStep: () =>
         set((state) => {
             const currentIndex = state.steps.indexOf(state.currentStep);

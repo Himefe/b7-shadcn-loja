@@ -12,6 +12,7 @@ const CheckoutModal = () => {
     const steps = useCheckoutStore((state) => state.steps);
     const currentStep = useCheckoutStore((state) => state.currentStep);
     const completedSteps = useCheckoutStore((state) => state.completedSteps);
+    const stepValidities = useCheckoutStore((state) => state.stepValidities);
     const setStep = useCheckoutStore((state) => state.setStep);
 
     const { title = "", description = "" } = CHECKOUT_STEPS_CONFIG[currentStep];
@@ -33,7 +34,11 @@ const CheckoutModal = () => {
                 <Tabs value={currentStep} defaultValue={CheckoutStep.CUSTOMER}>
                     <TabsList className="w-full">
                         {steps.map((step) => {
-                            const isTabDisabled = step !== CheckoutStep.REVIEW && step !== currentStep && !completedSteps.includes(step);
+                            const currentStepInvalid = !stepValidities[currentStep];
+                            const isReviewStep = step === CheckoutStep.REVIEW;
+                            const isCompletedStep = completedSteps.includes(step);
+                            const isCurrentStepCompleted = completedSteps.includes(currentStep);
+                            const isTabDisabled = step !== currentStep && ((currentStepInvalid && isCurrentStepCompleted) || (!isReviewStep && !isCompletedStep));
 
                             return (
                                 <TabsTrigger key={step} value={step} onClick={setStep.bind(null, step)} disabled={isTabDisabled}>
@@ -43,7 +48,7 @@ const CheckoutModal = () => {
                         })}
                     </TabsList>
                     <Separator className="my-2" />
-                    <TabsContent value={currentStep} className="flex flex-col gap-4 mb-4">
+                    <TabsContent value={currentStep} className="flex flex-col gap-4">
                         {getContentComponent(currentStep)}
                     </TabsContent>
                 </Tabs>

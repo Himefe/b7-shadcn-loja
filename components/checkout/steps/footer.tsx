@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { PropsWithChildren } from "react";
 
 type CheckoutStepContentFooterProps = {
     onPrev?: () => void;
@@ -10,23 +12,27 @@ type CheckoutStepContentFooterProps = {
     }>;
 };
 
-const CheckoutStepContentFooter = ({ onPrev, isValid = false, button = {} }: CheckoutStepContentFooterProps) => {
+const CheckoutStepFooter = ({ onPrev, isValid = false, button = {}, children }: PropsWithChildren<CheckoutStepContentFooterProps>) => {
     const { label, type, onClick } = button;
 
     return (
-        <div className="flex border-t border-border py-2 justify-between items-center">
-            {Boolean(onPrev) && (
-                <Button variant="default" type={type}>
-                    Voltar
-                </Button>
-            )}
-            <div className="flex-1 flex justify-end">
-                <Button variant="outline" disabled={!isValid} type={type} onClick={onClick}>
-                    {label || "Avançar"}
-                </Button>
+        <>
+            {children}
+            {children && <Separator className="my-4" />}
+            <div className="flex border-t border-border pt-2 justify-between items-center">
+                {Boolean(onPrev) && (
+                    <Button variant="outline" type="button" onClick={onPrev} disabled={!isValid}>
+                        Voltar
+                    </Button>
+                )}
+                <div className="flex-1 flex justify-end">
+                    <Button variant="default" disabled={!isValid} type={type} onClick={onClick}>
+                        {label || "Avançar"}
+                    </Button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
-export default CheckoutStepContentFooter;
+export default CheckoutStepFooter;
