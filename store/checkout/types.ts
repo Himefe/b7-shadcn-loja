@@ -1,4 +1,6 @@
+import { CheckoutStepAddressData } from "@/components/checkout/steps/address/utils";
 import { CheckoutStepCustomerData } from "@/components/checkout/steps/customer/utils";
+import { CheckoutStepPaymentData } from "@/components/checkout/steps/payment/utils";
 
 export enum CheckoutStep {
     CUSTOMER = "CUSTOMER",
@@ -6,24 +8,6 @@ export enum CheckoutStep {
     PAYMENT = "PAYMENT",
     REVIEW = "REVIEW",
 }
-
-type CheckoutStepAddressData = {
-    zipCode: string;
-    street: string;
-    number: string;
-    complement: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-};
-
-type CheckoutStepPaymentData = {
-    paymentMethod: string;
-    cardNumber: string;
-    cardHolder: string;
-    expirationDate: string;
-    cvv: string;
-};
 
 type CheckoutStepData = {
     [CheckoutStep.CUSTOMER]: CheckoutStepCustomerData;

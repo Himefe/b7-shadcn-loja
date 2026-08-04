@@ -5,12 +5,13 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Controller, useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
-import { checkoutAddressFormSchema, CheckoutStepAdressData, getAddressFromZipCode } from "./utils";
+import { checkoutAddressFormSchema, CheckoutStepAddressData, getAddressFromZipCode } from "./utils";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CheckoutStepFooter from "../footer";
 import { useCheckoutStore } from "@/store/checkout";
 import { CheckoutStep } from "@/store/checkout/types";
+import { LoaderCircle } from "lucide-react";
 
 const CheckoutAddressStepContent = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +24,7 @@ const CheckoutAddressStepContent = () => {
 
     const data = useCheckoutStore((state) => state.data[CheckoutStep.ADDRESS]);
 
-    const { formState, control, getValues, setValue, setValues, handleSubmit } = useForm<CheckoutStepAdressData>({
+    const { formState, control, getValues, setValue, handleSubmit } = useForm<CheckoutStepAddressData>({
         mode: "onChange",
         resolver: zodResolver(checkoutAddressFormSchema),
         defaultValues: {
@@ -35,6 +36,7 @@ const CheckoutAddressStepContent = () => {
             city: "",
             state: "",
             observations: "",
+            ...data,
         },
     });
 
@@ -72,12 +74,6 @@ const CheckoutAddressStepContent = () => {
     };
 
     useEffect(() => {
-        if (data) {
-            setValues(data);
-        }
-    }, [data, setValues]);
-
-    useEffect(() => {
         setStepValidity(CheckoutStep.ADDRESS, formState.isValid);
     }, [formState.isValid, setStepValidity]);
 
@@ -102,9 +98,17 @@ const CheckoutAddressStepContent = () => {
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel>CEP</FieldLabel>
                                     <div className="flex gap-2">
-                                        <PatternFormat {...field} mask="_" allowEmptyFormatting={false} format="#####-###" placeholder="00000-000" customInput={Input} />
+                                        <PatternFormat
+                                            {...field}
+                                            aria-invalid={fieldState.invalid}
+                                            mask="_"
+                                            allowEmptyFormatting={false}
+                                            format="#####-###"
+                                            placeholder="00000-000"
+                                            customInput={Input}
+                                        />
                                         <Button type="button" disabled={isLoading || fieldState.invalid || !field.value} onClick={handleGetAddressFromZipCode}>
-                                            Buscar
+                                            {isLoading ? <LoaderCircle className="animate-spin" /> : "Buscar"}
                                         </Button>
                                     </div>
                                 </Field>
@@ -119,7 +123,7 @@ const CheckoutAddressStepContent = () => {
                         return (
                             <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel>Estado</FieldLabel>
-                                <Input {...field} placeholder="Digite seu estado" />
+                                <Input {...field} aria-invalid={fieldState.invalid} placeholder="Digite seu estado" />
                             </Field>
                         );
                     }}
@@ -131,7 +135,7 @@ const CheckoutAddressStepContent = () => {
                         return (
                             <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel>Cidade</FieldLabel>
-                                <Input {...field} placeholder="Digite sua cidade" />
+                                <Input {...field} aria-invalid={fieldState.invalid} placeholder="Digite sua cidade" />
                             </Field>
                         );
                     }}
@@ -143,7 +147,7 @@ const CheckoutAddressStepContent = () => {
                         return (
                             <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel>Bairro</FieldLabel>
-                                <Input {...field} placeholder="Digite seu bairro" />
+                                <Input {...field} aria-invalid={fieldState.invalid} placeholder="Digite seu bairro" />
                             </Field>
                         );
                     }}
@@ -155,7 +159,7 @@ const CheckoutAddressStepContent = () => {
                         return (
                             <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel>Rua</FieldLabel>
-                                <Input {...field} placeholder="Digite o nome da rua" />
+                                <Input {...field} aria-invalid={fieldState.invalid} placeholder="Digite o nome da rua" />
                             </Field>
                         );
                     }}
@@ -169,7 +173,7 @@ const CheckoutAddressStepContent = () => {
                                 return (
                                     <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel>Número</FieldLabel>
-                                        <Input {...field} placeholder="N°" />
+                                        <Input {...field} aria-invalid={fieldState.invalid} placeholder="N°" />
                                     </Field>
                                 );
                             }}
@@ -183,7 +187,7 @@ const CheckoutAddressStepContent = () => {
                                 return (
                                     <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel>Complemento</FieldLabel>
-                                        <Input {...field} placeholder="Digite o complemento" />
+                                        <Input {...field} aria-invalid={fieldState.invalid} placeholder="Digite o complemento" />
                                     </Field>
                                 );
                             }}
@@ -197,7 +201,7 @@ const CheckoutAddressStepContent = () => {
                         return (
                             <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel>Observações</FieldLabel>
-                                <Input {...field} placeholder="Digite as observações" />
+                                <Input {...field} aria-invalid={fieldState.invalid} placeholder="Digite as observações" />
                             </Field>
                         );
                     }}

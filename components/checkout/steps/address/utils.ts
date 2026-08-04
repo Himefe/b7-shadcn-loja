@@ -14,7 +14,7 @@ export const checkoutAddressFormSchema = z.object({
     observations: z.string(),
 });
 
-export type CheckoutStepAdressData = z.infer<typeof checkoutAddressFormSchema>;
+export type CheckoutStepAddressData = z.infer<typeof checkoutAddressFormSchema>;
 
 type ViaCepResponse = {
     cep: string;

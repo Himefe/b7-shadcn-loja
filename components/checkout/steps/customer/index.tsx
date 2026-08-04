@@ -25,6 +25,7 @@ const CheckoutCustomerStepContent = () => {
             email: "",
             phone: "",
             cpf: "",
+            ...data,
         },
     });
 
@@ -34,20 +35,17 @@ const CheckoutCustomerStepContent = () => {
     };
 
     useEffect(() => {
-        if (data) {
-            setValues(data);
-        }
-    }, [data, setValues]);
-
-    useEffect(() => {
         setStepValidity(CheckoutStep.CUSTOMER, formState.isValid);
     }, [formState.isValid, setStepValidity]);
 
     useEffect(() => {
         return () => {
             setData(CheckoutStep.CUSTOMER, getValues());
+            if (formState.isValid) {
+                completeStep(CheckoutStep.CUSTOMER);
+            }
         };
-    }, [getValues, setData]);
+    }, [getValues, setData, formState.isValid, completeStep]);
 
     return (
         <form onSubmit={handleSubmit(submit)}>
