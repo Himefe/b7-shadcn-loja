@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import { CheckoutStep } from "./types";
 import CheckoutCustomerStepContent from "@/components/checkout/steps/customer";
 import CheckoutAddressStepContent from "@/components/checkout/steps/address";
+import CheckoutStepPaymentContent from "@/components/checkout/steps/payment";
 
 export const CHECKOUT_STEPS_CONFIG: Record<CheckoutStep, { title: string; description: string; label: string }> = {
     [CheckoutStep.CUSTOMER]: {
@@ -29,6 +30,6 @@ export const CHECKOUT_STEPS_CONFIG: Record<CheckoutStep, { title: string; descri
 export const CHECKOUT_STEPS_COMPONENTS = {
     [CheckoutStep.CUSTOMER]: CheckoutCustomerStepContent,
     [CheckoutStep.ADDRESS]: CheckoutAddressStepContent,
-    [CheckoutStep.PAYMENT]: CheckoutCustomerStepContent,
+    [CheckoutStep.PAYMENT]: CheckoutStepPaymentContent,
     [CheckoutStep.REVIEW]: CheckoutCustomerStepContent,
 } satisfies Record<CheckoutStep, FunctionComponent>;
